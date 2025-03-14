@@ -5,10 +5,25 @@ public class Task {
     private String description;
     private boolean isCompleted;
 
-    public Task(String title, String description, boolean isCompleted) {
+    public Task(String title, String description) {
         this.title = title;
         this.description = description;
-        this.isCompleted = false;
+        this.isCompleted = false; 
     }
-    
+
+    public void markAsCompleted(){
+        this.isCompleted = true;
+    }
+
+    public String getTitle(){
+        return title;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public boolean isCompleted(){
+        return isCompleted;
+    }
 }
