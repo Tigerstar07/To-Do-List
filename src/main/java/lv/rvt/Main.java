@@ -27,8 +27,24 @@ public class Main{
             String description = scanner.nextLine();
             taskManager.addTask(title, description);
 
+            case 2:
+            ViewTask.displayTasks(taskManager);
+            break;
+
+            case 3:
+            ViewTask.displayTasks(taskManager);
+            System.out.println("Enter task number to remove");
+            int index = scanner.nextInt();
+            taskManager.removeTask(index - 1);
+            break;
+            case 4:
+            running = false;
+            break;
+            default:
+            System.out.println("No such option!");
 
         }
-    }
+        }
+        scanner.close();
     }
 }
