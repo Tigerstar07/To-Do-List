@@ -44,7 +44,9 @@ public class TaskManager {
 
             for (Task task : tasks) {
                 // ieraktīt failā
-                // izmantojot writer objektu
+                // izmantojot writer objez
+                writer.write(task.getTitle()+ "," + task.getDescription() + "," + task.isCompleted());
+
                 System.out.println(
                     task.getTitle() + ", " + task.getDescription() // dzert, padzerties 3l ūdeni
                 );
