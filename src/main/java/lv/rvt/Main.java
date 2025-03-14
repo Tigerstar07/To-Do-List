@@ -42,6 +42,7 @@ public class Main {
                     break;
 
                 case 4:
+                    taskManager.saveTasks();
                     running = false;
                     System.out.println("Exiting...");
                     break;
