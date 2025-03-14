@@ -15,12 +15,20 @@ public class TaskManager {
     }
 
     public void removeTask(int index) {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks to remove!");
+            return;
+        }
+
         if (index >= 0 && index < tasks.size()) {
-            tasks.remove(index); 
+            System.out.println("Removing task: " + tasks.get(index).getTitle());
+            tasks.remove(index);
+        } else {
+            System.out.println("Invalid task number!");
         }
     }
 
     public List<Task> getTasks() {
-        return tasks; 
+        return tasks;
     }
 }

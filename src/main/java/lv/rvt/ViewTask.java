@@ -1,12 +1,14 @@
 package lv.rvt;
 
-import java.util.*;
-
-
-
 public class ViewTask {
     public static void displayTasks(TaskManager taskManager) {
-        System.out.println("\nYour Tasks:");
+        System.out.println("\n--- Your Tasks ---");
+        
+        if (taskManager.getTasks().isEmpty()) {
+            System.out.println("No tasks available.");
+            return;
+        }
+
         int index = 1;
         for (Task task : taskManager.getTasks()) {
             System.out.println(index + ". " + task);
@@ -14,4 +16,3 @@ public class ViewTask {
         }
     }
 }
-

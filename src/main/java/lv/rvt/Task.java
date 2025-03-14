@@ -11,19 +11,24 @@ public class Task {
         this.isCompleted = false; 
     }
 
-    public void markAsCompleted(){
+    public void markAsCompleted() {
         this.isCompleted = true;
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
-    public boolean isCompleted(){
+    public boolean isCompleted() {
         return isCompleted;
+    }
+
+    @Override
+    public String toString() {
+        return (isCompleted ? "[✔] " : "[ ] ") + title + ": " + description;
     }
 }
