@@ -16,9 +16,9 @@ public class Helper {
        return Files.newBufferedReader(getFilePath(filename));
     }
 
-    public static BufferedWriter getWriter(String filename, StandardOpenOption option) throws IOException {
-       return Files.newBufferedWriter(getFilePath(filename), option);
-    }
+    public static BufferedWriter getWriter(String filename, StandardOpenOption... options) throws IOException {
+        return Files.newBufferedWriter(getFilePath(filename), options);
+    }    
 
     private static Path getFilePath(String filename) throws FileNotFoundException {
         Path filePath = Paths.get("data", filename);

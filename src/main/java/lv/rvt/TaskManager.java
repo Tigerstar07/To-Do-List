@@ -1,5 +1,6 @@
 package lv.rvt;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.StandardOpenOption;
@@ -36,26 +37,40 @@ public class TaskManager {
     public List<Task> getTasks() {
         return tasks;
     }
+
     public void saveTasks() {
-        // Exceptions pielietojums: java-mooc: 11-3
-        try {
-            BufferedWriter writer = Helper.getWriter("tasks.csv", StandardOpenOption.APPEND);
-            // writer.write(123);
-
+        try (BufferedWriter writer = Helper.getWriter("tasks.csv", StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
             for (Task task : tasks) {
-                // ieraktīt failā
-                // izmantojot writer objez
-                writer.write(task.getTitle()+ "," + task.getDescription() + "," + task.isCompleted());
-
-                System.out.println(
-                    task.getTitle() + ", " + task.getDescription() // dzert, padzerties 3l ūdeni
-                );
+                writer.write(task.getTitle() + "," + task.getDescription() + "," + task.isCompleted());
+                writer.newLine();
             }
-
+            System.out.println("✅ Tasks saved successfully!");
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.out.println("❌ Error saving tasks: " + e.getMessage());
         }
-
     }
+
+    public void loadTasks() {
+        try (BufferedReader reader = Helper.getReader("tasks.csv")) {
+            String line;
+            System.out.println("📂 Loading tasks from file...");
+    
+            while ((line = reader.readLine()) != null) {
+                System.out.println("📄 Read line: " + line); // Debugging line
+    
+                String[] parts = line.split(",", 3);
+                if (parts.length == 3) {
+                    Task task = new Task(parts[0], parts[1]);
+                    if (Boolean.parseBoolean(parts[2])) {
+                        task.markAsCompleted();
+                    }
+                    tasks.add(task);
+                }
+            }
+            System.out.println("✅ Tasks loaded successfully!");
+        } catch (IOException e) {
+            System.out.println("⚠ No existing tasks found or error loading tasks: " + e.getMessage());
+        }
+    }
+    
 }
