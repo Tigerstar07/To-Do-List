@@ -38,6 +38,18 @@ public class TaskManager {
         return tasks;
     }
 
+    // Add the editTask method here
+    public void editTask(int index, String newTitle, String newDescription) {
+        if (index >= 0 && index < tasks.size()) {
+            Task task = tasks.get(index);
+            task.setTitle(newTitle);        // Update the task title
+            task.setDescription(newDescription);  // Update the task description
+            System.out.println("Task updated successfully!");
+        } else {
+            System.out.println("Invalid task number!");
+        }
+    }
+
     public void saveTasks() {
         try (BufferedWriter writer = Helper.getWriter("tasks.csv", StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
             for (Task task : tasks) {
@@ -54,10 +66,10 @@ public class TaskManager {
         try (BufferedReader reader = Helper.getReader("tasks.csv")) {
             String line;
             System.out.println("📂 Loading tasks from file...");
-    
+
             while ((line = reader.readLine()) != null) {
-                System.out.println("📄 Read line: " + line); // Debugging line
-    
+                System.out.println("📄 Read line: " + line); 
+
                 String[] parts = line.split(",", 3);
                 if (parts.length == 3) {
                     Task task = new Task(parts[0], parts[1]);
@@ -72,5 +84,4 @@ public class TaskManager {
             System.out.println("⚠ No existing tasks found or error loading tasks: " + e.getMessage());
         }
     }
-    
 }

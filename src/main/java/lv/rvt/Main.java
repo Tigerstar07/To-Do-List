@@ -33,7 +33,26 @@ public class Main {
 
                 case 2:
                     ViewTask.displayTasks(taskManager);
-                    break;
+                    System.out.println("Enter task number you want to edit or 0 (zero) to go back:");
+                    int taskNum = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (taskNum > 0 && taskNum <= taskManager.getTasks().size()) {
+                        System.out.println("You selected task: " + taskNum);
+
+                        System.out.println("Are you sure you want to edit this? y/n: ");
+                        String editChoice = scanner.nextLine();
+
+                        if (editChoice.equalsIgnoreCase("Y")){
+                            System.out.println("Enter new task title: ");
+                            String newTitle = scanner.nextLine();
+                            System.out.println("Enter a new task description: ");
+                            String newDescription = scanner.nextLine();
+                            taskManager.editTask(taskNum - 1, newTitle, newDescription);
+                            System.out.println("The task has been updated sucessfully! 💾");
+                        }
+
+                        }
 
                 case 3:
                     ViewTask.displayTasks(taskManager);
