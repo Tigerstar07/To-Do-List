@@ -19,7 +19,7 @@ public class Main {
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); 
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -32,34 +32,43 @@ public class Main {
                     break;
 
                 case 2:
-                    ViewTask.displayTasks(taskManager);
-                    System.out.println("Enter task number you want to edit or 0 (zero) to go back:");
-                    int taskNum = scanner.nextInt();
-                    scanner.nextLine();
+                    boolean viewingTasks = true;
+                    while (viewingTasks) {
+                        ViewTask.displayTasks(taskManager);
+                        System.out.println("Enter task number to edit, or 0 (zero) to go back:");
+                        int taskNum = scanner.nextInt();
+                        scanner.nextLine();
 
-                    if (taskNum > 0 && taskNum <= taskManager.getTasks().size()) {
-                        System.out.println("You selected task: " + taskNum);
-
-                        System.out.println("Are you sure you want to edit this? y/n: ");
-                        String editChoice = scanner.nextLine();
-
-                        if (editChoice.equalsIgnoreCase("Y")){
-                            System.out.println("Enter new task title: ");
+                        if (taskNum == 0) {
+                            viewingTasks = false;
+                        } else if (taskNum > 0 && taskNum <= taskManager.getTasks().size()) {
+                            System.out.println("Editing task: " + taskNum);
+                            System.out.print("Enter new task title: ");
                             String newTitle = scanner.nextLine();
-                            System.out.println("Enter a new task description: ");
+                            System.out.print("Enter new task description: ");
                             String newDescription = scanner.nextLine();
                             taskManager.editTask(taskNum - 1, newTitle, newDescription);
-                            System.out.println("The task has been updated sucessfully! 💾");
+                            System.out.println("Task updated successfully!");
+                        } else {
+                            System.out.println("Invalid selection, please try again.");
                         }
-
-                        }
+                    }
+                    break;
 
                 case 3:
                     ViewTask.displayTasks(taskManager);
-                    System.out.print("Enter task number to remove: ");
+                    System.out.print("Enter task number to remove, or 0 (zero) to go back: ");
                     int index = scanner.nextInt();
-                    taskManager.removeTask(index - 1);
-                    System.out.println("Task removed successfully!");
+                    scanner.nextLine(); // Clear newline buffer
+
+                    if (index == 0) {
+                        break; // Go back to the main menu
+                    } else if (index > 0 && index <= taskManager.getTasks().size()) {
+                        taskManager.removeTask(index - 1);
+                        System.out.println("Task removed successfully!");
+                    } else {
+                        System.out.println("Invalid task number!");
+                    }
                     break;
 
                 case 4:
