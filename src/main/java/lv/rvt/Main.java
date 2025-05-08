@@ -51,7 +51,7 @@
          scanner.close();
      }
  
-     // Funkcija jauna uzdevuma pievienošanai
+     // Funkcija jauna uzdevuma pievienošanaiii
      private static void addTask(Scanner scanner, TaskManager manager) {
          printBox("➕ Add New Task");
          System.out.print("Enter task title: ");
