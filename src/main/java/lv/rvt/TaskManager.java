@@ -1,6 +1,7 @@
 package lv.rvt;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,8 @@ public class TaskManager {
         } catch (IOException e) {
             System.out.println("❌ Error saving tasks: " + e.getMessage());
         }
+
+        saveTasksAsCSV("tasks.csv"); // also save as CSV
     }
 
     public void loadTasks() {
@@ -49,6 +52,23 @@ public class TaskManager {
             tasks = (List<Task>) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
             // Ignore if file doesn't exist
+        }
+    }
+
+    public void saveTasksAsCSV(String filename) {
+        try (BufferedWriter writer = new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(filename), StandardCharsets.UTF_8))) {
+            writer.write("Title,Description,Created,Completed,CompletedTime\n");
+            for (Task task : tasks) {
+                writer.write(String.format("\"%s\",\"%s\",\"%s\",%s,\"%s\"\n",
+                        task.getTitle().replace("\"", "\"\""),
+                        task.getDescription().replace("\"", "\"\""),
+                        task.getCreationDate(),
+                        task.isCompleted(),
+                        task.getCompletedTime()));
+            }
+        } catch (IOException e) {
+            System.out.println("❌ Error saving CSV: " + e.getMessage());
         }
     }
 }
